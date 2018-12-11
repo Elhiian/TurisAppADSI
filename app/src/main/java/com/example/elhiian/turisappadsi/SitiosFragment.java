@@ -9,6 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.elhiian.turisappadsi.Clases.Sitios;
+import com.loopj.android.http.AsyncHttpClient;
+
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,6 +72,9 @@ public class SitiosFragment extends Fragment {
 
     RecyclerView recyclerLista;
     View view;
+    ArrayList<Sitios> listadoSitios;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,7 +89,12 @@ public class SitiosFragment extends Fragment {
     }
 
     private void consultarLista() {
-        String url="http://turisapp.esy.es/turisapp/informacion.php?action=";
+        String accion=getArguments().getString("accion");
+        String url="http://turisapp.esy.es/turisapp/informacion.php?action="+accion;
+        listadoSitios=new ArrayList<>();
+        AsyncHttpClient consulta=new AsyncHttpClient();
+
+
 
     }
 
