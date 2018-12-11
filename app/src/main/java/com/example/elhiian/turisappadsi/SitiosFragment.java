@@ -128,8 +128,8 @@ public class SitiosFragment extends Fragment {
                             listadoSitios.add(sitios);
 
                         }
+                        RecyclerAdapter adapter=new RecyclerAdapter(listadoSitios,getActivity());
                         recyclerLista.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        RecyclerAdapter adapter=new RecyclerAdapter(listadoSitios);
                         recyclerLista.setAdapter(adapter);
 
                     } catch (Exception e) {

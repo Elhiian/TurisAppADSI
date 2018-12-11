@@ -1,5 +1,6 @@
 package com.example.elhiian.turisappadsi.Clases;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,15 +10,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.elhiian.turisappadsi.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder> {
     ArrayList<Sitios> listaSitios;
+    Context context;
 
-    public RecyclerAdapter(ArrayList<Sitios> listaSitios) {
+    public RecyclerAdapter(ArrayList<Sitios> listaSitios, Context contex) {
         this.listaSitios = listaSitios;
+        this.context=contex;
     }
+
+
 
     @NonNull
     @Override
@@ -29,6 +35,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
         holder.listaNombre.setText(listaSitios.get(i).getNombre());
+        holder.listaDescripcion.setText(listaSitios.get(i).getDescripcioncorta());
+        holder.listaDireccion.setText(listaSitios.get(i).getUbicacion());
+        Picasso.with(context).load("http://turisapp.esy.es/"+listaSitios.get(i).getFoto()).into(holder.listaImagen);
+
     }
 
     @Override
