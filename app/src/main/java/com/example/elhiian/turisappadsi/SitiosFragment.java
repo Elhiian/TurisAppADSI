@@ -8,11 +8,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.elhiian.turisappadsi.Clases.Sitios;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 
 /**
@@ -91,8 +98,49 @@ public class SitiosFragment extends Fragment {
     private void consultarLista() {
         String accion=getArguments().getString("accion");
         String url="http://turisapp.esy.es/turisapp/informacion.php?action="+accion;
-        listadoSitios=new ArrayList<>();
+
+        listadoSitios=new ArrayList<>(); //arreglo de objetos
+
         AsyncHttpClient consulta=new AsyncHttpClient();
+        consulta.get(url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode==200){
+                    String respuesta=new String(responseBody);
+                    try {
+
+                        //convertir el arreglo
+                        JSONArray datos=new JSONArray(respuesta);
+
+                        for (int i=0; i<datos.length(); i++){
+                            Sitios sitios=new Sitios();
+                            sitios.setId(datos.getJSONObject(i).getString("id"));
+                            sitios.setDescripcioncorta(datos.getJSONObject(i).getString("descripcioncorta"));
+                            sitios.setUbicacion(datos.getJSONObject(i).getString("ubicacion"));
+                            sitios.setDescripcion(datos.getJSONObject(i).getString("descripcion"));
+                            sitios.setNombre(datos.getJSONObject(i).getString("nombre"));
+                            sitios.setLatitud(datos.getJSONObject(i).getString("latitud"));
+                            sitios.setLongitud(datos.getJSONObject(i).getString("longitud"));
+                            sitios.setFoto(datos.getJSONObject(i).getString("foto"));
+
+                            //añadir la clase a la lista de objetos
+                            listadoSitios.add(sitios);
+
+                        }
+
+                    } catch (Exception e) {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(getActivity(), "No se pudo conectar al servidor", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 
 
