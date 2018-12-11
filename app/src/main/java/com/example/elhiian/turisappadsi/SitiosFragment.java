@@ -108,7 +108,6 @@ public class SitiosFragment extends Fragment {
                 if (statusCode==200){
                     String respuesta=new String(responseBody);
                     try {
-
                         //convertir el arreglo
                         JSONArray datos=new JSONArray(respuesta);
 
