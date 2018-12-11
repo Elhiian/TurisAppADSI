@@ -1,8 +1,10 @@
 package com.example.elhiian.turisappadsi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -80,6 +82,7 @@ public class SitiosFragment extends Fragment {
 
 
     RecyclerView recyclerLista;
+    FloatingActionButton botonFlotante;
     View view;
     ArrayList<Sitios> listadoSitios;
 
@@ -92,6 +95,20 @@ public class SitiosFragment extends Fragment {
 
         view=inflater.inflate(R.layout.fragment_sitios, container, false);
         recyclerLista=view.findViewById(R.id.recyclerListaSitios);
+        botonFlotante=view.findViewById(R.id.botonUbicacion);
+        //implementar el click al boton flotante
+        botonFlotante.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(),UbicacionesActivity.class);  //creacion del intent
+
+                Bundle bundle=new Bundle();  //objeto bundle en el cual añadimos los datos
+                bundle.putSerializable("lista",listadoSitios);   //añadimos la lista que consultamos a el bundle
+                intent.putExtras(bundle);  //agregamos el bundle a la activity
+                startActivity(intent);  //iniciamos la nueva actividad
+            }
+        });
+
         consultarLista();
 
         return view;
