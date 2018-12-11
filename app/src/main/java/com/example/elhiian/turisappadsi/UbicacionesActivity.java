@@ -8,6 +8,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class UbicacionesActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    ArrayList<Sitios> listaSitios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,7 @@ public class UbicacionesActivity extends FragmentActivity implements OnMapReadyC
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        ArrayList<Sitios> listaSitios= (ArrayList<Sitios>) getIntent().getSerializableExtra("lista");
+        listaSitios= (ArrayList<Sitios>) getIntent().getSerializableExtra("lista");
 
     }
 
@@ -44,9 +46,16 @@ public class UbicacionesActivity extends FragmentActivity implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        cargarUbicaciones(mMap);
+
+    }
+
+    private void cargarUbicaciones(GoogleMap mapa) {
+        for (int i=0; i<listaSitios.size(); i++){
+            LatLng coordenadas=new LatLng(Double.parseDouble(listaSitios.get(i).getLatitud())  ,   Double.parseDouble(listaSitios.get(i).getLongitud()));
+            mapa.addMarker(new MarkerOptions().position(coordenadas).title(listaSitios.get(i).getNombre()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+            mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(coordenadas,10));
+        }
+
     }
 }

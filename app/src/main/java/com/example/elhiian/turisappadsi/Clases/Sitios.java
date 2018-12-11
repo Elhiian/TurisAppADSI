@@ -1,6 +1,8 @@
 package com.example.elhiian.turisappadsi.Clases;
 
-public class Sitios {
+import java.io.Serializable;
+
+public class Sitios implements Serializable {
 
 
     private String id;
