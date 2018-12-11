@@ -4,12 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.elhiian.turisappadsi.Clases.RecyclerAdapter;
 import com.example.elhiian.turisappadsi.Clases.Sitios;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -126,6 +128,9 @@ public class SitiosFragment extends Fragment {
                             listadoSitios.add(sitios);
 
                         }
+                        recyclerLista.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        RecyclerAdapter adapter=new RecyclerAdapter(listadoSitios);
+                        recyclerLista.setAdapter(adapter);
 
                     } catch (Exception e) {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();

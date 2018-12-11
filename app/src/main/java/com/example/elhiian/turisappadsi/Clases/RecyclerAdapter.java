@@ -28,7 +28,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
-
+        holder.listaNombre.setText(listaSitios.get(i).getNombre());
     }
 
     @Override
