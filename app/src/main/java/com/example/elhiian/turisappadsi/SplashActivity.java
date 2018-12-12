@@ -9,10 +9,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 
 import com.example.elhiian.turisappadsi.Clases.Configuracion;
 
 public class SplashActivity extends AppCompatActivity {
+
+    LinearLayout layoutNombre,layoutLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +24,14 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         Configuracion.fragment=null;
+
+        layoutLogo=findViewById(R.id.layoutLogo);
+        layoutNombre=findViewById(R.id.layoutNombre);
+
+        layoutLogo.setAnimation(AnimationUtils.loadAnimation(this,R.anim.arriba_hacia_abajo));
+        layoutNombre.setAnimation(AnimationUtils.loadAnimation(this,R.anim.abajo_hacia_arriba));
+
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
