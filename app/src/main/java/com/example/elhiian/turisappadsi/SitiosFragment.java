@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -106,8 +107,8 @@ public class SitiosFragment extends Fragment {
         botonCambiarVista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "kssdhksajhd", Toast.LENGTH_SHORT).show();
-                if (isList=true){
+                Snackbar.make(view,"Cambiando vista",Snackbar.LENGTH_LONG).show();
+                if (isList==true){
                     isList=false;
                 }else{
                     isList=true;
@@ -167,7 +168,7 @@ public class SitiosFragment extends Fragment {
 
                         }
                         //creacion del adaptador
-                        RecyclerAdapter adapter=new RecyclerAdapter(listadoSitios,getActivity());
+                        RecyclerAdapter adapter=new RecyclerAdapter(listadoSitios,getActivity(),isList);
 
                         adapter.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -181,7 +182,11 @@ public class SitiosFragment extends Fragment {
                             }
                         });
 
-                        recyclerLista.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        if (isList==true){
+                            recyclerLista.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        }else{
+                            recyclerLista.setLayoutManager(new GridLayoutManager(getActivity(),2));
+                        }
                         recyclerLista.setAdapter(adapter);
 
                     } catch (Exception e) {

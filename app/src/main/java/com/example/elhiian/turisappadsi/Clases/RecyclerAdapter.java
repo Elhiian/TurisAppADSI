@@ -18,10 +18,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
     ArrayList<Sitios> listaSitios;
     Context context;
     View.OnClickListener click;
+    boolean isList;
 
-    public RecyclerAdapter(ArrayList<Sitios> listaSitios, Context contex) {
+    public RecyclerAdapter(ArrayList<Sitios> listaSitios, Context contex, boolean isList) {
         this.listaSitios = listaSitios;
         this.context=contex;
+        this.isList=isList;
     }
 
 
@@ -29,7 +31,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_lista_sitios,viewGroup,false);
+        View view;
+
+        if (isList==true){
+            view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_lista_sitios,viewGroup,false);
+        }else{
+            view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_lista_sitios_grid,viewGroup,false);
+        }
         view.setOnClickListener(this);
         return new Holder(view);
     }
@@ -37,9 +45,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
         holder.listaNombre.setText(listaSitios.get(i).getNombre());
-        holder.listaDescripcion.setText(listaSitios.get(i).getDescripcioncorta());
         holder.listaDireccion.setText(listaSitios.get(i).getUbicacion());
         Picasso.with(context).load("http://turisapp.esy.es/"+listaSitios.get(i).getFoto()).into(holder.listaImagen);
+        if (isList==true){
+            holder.listaDescripcion.setText(listaSitios.get(i).getDescripcioncorta());
+        }
 
     }
 
@@ -66,10 +76,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
 
         public Holder(@NonNull View itemView) {
             super(itemView);
-            listaImagen=itemView.findViewById(R.id.listaImagen);
-            listaNombre=itemView.findViewById(R.id.listaNombre);
-            listaDescripcion=itemView.findViewById(R.id.listaDescripcion);
-            listaDireccion=itemView.findViewById(R.id.listaDireccion);
+            if (isList==true){
+                listaImagen=itemView.findViewById(R.id.listaImagen);
+                listaNombre=itemView.findViewById(R.id.listaNombre);
+                listaDescripcion=itemView.findViewById(R.id.listaDescripcion);
+                listaDireccion=itemView.findViewById(R.id.listaDireccion);
+            }else{
+                listaImagen=itemView.findViewById(R.id.gridImagen);
+                listaNombre=itemView.findViewById(R.id.gridNombre);
+                listaDireccion=itemView.findViewById(R.id.gridDireccion);
+            }
         }
     }
 }
