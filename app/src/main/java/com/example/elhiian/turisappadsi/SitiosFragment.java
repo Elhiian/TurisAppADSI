@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -77,14 +79,17 @@ public class SitiosFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setHasOptionsMenu(true);
     }
 
 
 
+
     RecyclerView recyclerLista;
-    FloatingActionButton botonFlotante;
+    FloatingActionButton botonFlotante, botonCambiarVista;
     View view;
     ArrayList<Sitios> listadoSitios;
+    boolean isList=true;
 
 
     @Override
@@ -96,6 +101,22 @@ public class SitiosFragment extends Fragment {
         view=inflater.inflate(R.layout.fragment_sitios, container, false);
         recyclerLista=view.findViewById(R.id.recyclerListaSitios);
         botonFlotante=view.findViewById(R.id.botonUbicacion);
+        botonCambiarVista=view.findViewById(R.id.botonCambiarVista);
+
+        botonCambiarVista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "kssdhksajhd", Toast.LENGTH_SHORT).show();
+                if (isList=true){
+                    isList=false;
+                }else{
+                    isList=true;
+                }
+                consultarLista();
+            }
+        });
+
+
         //implementar el click al boton flotante
         botonFlotante.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,10 +196,6 @@ public class SitiosFragment extends Fragment {
                 Toast.makeText(getActivity(), "No se pudo conectar al servidor", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
-
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -197,6 +214,12 @@ public class SitiosFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
