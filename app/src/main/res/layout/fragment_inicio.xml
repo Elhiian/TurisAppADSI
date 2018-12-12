@@ -11,18 +11,25 @@
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_background" />
+        android:layout_height="203dp"
+        android:layout_margin="10dp"
+        android:src="@mipmap/travel" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:text="TurisApp" />
 
     <TextView
+        android:layout_margin="10dp"
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:text="Esta es una aplicación creada por el tecnologo de analisis y desarrollo de sistemas de información" />
 </LinearLayout>
