@@ -14,9 +14,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder> {
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder> implements View.OnClickListener {
     ArrayList<Sitios> listaSitios;
     Context context;
+    View.OnClickListener click;
 
     public RecyclerAdapter(ArrayList<Sitios> listaSitios, Context contex) {
         this.listaSitios = listaSitios;
@@ -29,6 +30,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_lista_sitios,viewGroup,false);
+        view.setOnClickListener(this);
         return new Holder(view);
     }
 
@@ -45,6 +47,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Holder
     public int getItemCount() {
         return listaSitios.size();
     }
+
+    @Override
+    public void onClick(View v) {
+        if (click!=null){
+            click.onClick(v);
+        }
+    }
+
+    public void setOnClickListener(View.OnClickListener listener){
+        this.click=listener;
+    }
+
 
     public class Holder extends RecyclerView.ViewHolder {
         ImageView listaImagen;

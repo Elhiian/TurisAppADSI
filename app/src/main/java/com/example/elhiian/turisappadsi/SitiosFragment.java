@@ -145,7 +145,21 @@ public class SitiosFragment extends Fragment {
                             listadoSitios.add(sitios);
 
                         }
+                        //creacion del adaptador
                         RecyclerAdapter adapter=new RecyclerAdapter(listadoSitios,getActivity());
+
+                        adapter.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent=new Intent(getActivity(),DetalleActivity.class);
+                                Bundle bundle=new Bundle();
+                                Sitios sitios=listadoSitios.get(recyclerLista.getChildAdapterPosition(v));
+                                bundle.putSerializable("sitio",sitios);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        });
+
                         recyclerLista.setLayoutManager(new LinearLayoutManager(getActivity()));
                         recyclerLista.setAdapter(adapter);
 

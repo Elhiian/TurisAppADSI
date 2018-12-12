@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 if (ContextCompat.checkSelfPermission(SplashActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)!=
                         PackageManager.PERMISSION_GRANTED){
-
+                    //abrir modal para pedir permisos al usuario
                     ActivityCompat.requestPermissions(SplashActivity.this,
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
 
@@ -32,11 +32,8 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
-
-
             }
         },2000);
-
     }
 
 
@@ -44,17 +41,15 @@ public class SplashActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode==0){
-            if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
                 Intent intent=new Intent(SplashActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
-
-            }
-            else{
+            }else{
                 finish();
             }
-
         }
+
     }
 }
 
