@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.elhiian.turisappadsi.Clases.Configuracion;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, InicioFragment.OnFragmentInteractionListener,
         SitiosFragment.OnFragmentInteractionListener{
@@ -37,6 +39,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (Configuracion.fragment==null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorPrincipal,new InicioFragment()).commit();
+        }
+
     }
 
     @Override
@@ -102,6 +109,8 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+
+        Configuracion.fragment=fragment;
         getSupportFragmentManager().beginTransaction().replace(R.id.contenedorPrincipal,fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
